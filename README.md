@@ -9,6 +9,29 @@ The game is played with the display on a TV or projector and each participant co
 
 Hint: NewtonWars assumes vsync is enabled. If it is running way too fast on your system, you can use the throttle argument to slow it down (set to 16 for example).
 
+Docker
+======
+
+How it works:
+-------------
+
+A containerized setup is included (`Dockerfile` + `docker/`). The game is rendered into a virtual X display (Xvfb) and exposed as noVNC stream for the browser.
+  
+The telnet server is wrapped into an ssh connection and requires a password, which is displayed on the game. The password resets every round.
+  
+Build:
+------
+
+```shell
+docker build -t newtonwars .
+```
+
+Run:
+----
+
+```shell
+docker run --rm --detach -p 8080:8080 -p 2222:22 -e NW_IP_ADDRESS=<ip address to show in title> -e NW_ROUNDTIME=<roundtime in seconds, e.g. 300> newtonwars
+```
 
 Milestones
 ==========
